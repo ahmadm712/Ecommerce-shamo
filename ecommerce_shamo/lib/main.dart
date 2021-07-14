@@ -1,5 +1,6 @@
 import 'package:ecommerce_shamo/pages/login.dart';
 import 'package:ecommerce_shamo/pages/splash.dart';
+import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,9 +12,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
       home: SplashPage(),
     );
   }
