@@ -1,3 +1,4 @@
+import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -9,10 +10,16 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: colorBg1,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text('data'), TextField()],
+          children: [
+            Text(
+              'data',
+              style: secondaryTextStyle.copyWith(fontSize: 22),
+            ),
+            TextField()
+          ],
         ));
   }
 }

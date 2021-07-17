@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:ecommerce_shamo/pages/login.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorSecond,
+      backgroundColor: colorBg1,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -40,12 +39,6 @@ class _SplashPageState extends State<SplashPage> {
               width: 150,
             ),
           ),
-          Text(
-            'Test we',
-            style: GoogleFonts.poppins(
-              fontSize: 40,
-            ),
-          )
         ],
       ),
     );
