@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:ecommerce_shamo/pages/sign_in_page.dart';
+
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +11,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
+    super.initState();
     Timer(Duration(seconds: 3), () => Navigator.pushNamed(context, '/sign-in'));
   }
 
