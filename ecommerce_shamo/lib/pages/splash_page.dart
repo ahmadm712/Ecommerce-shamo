@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:ecommerce_shamo/pages/login.dart';
+import 'package:ecommerce_shamo/pages/sign_in_page.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -20,7 +19,7 @@ class _SplashPageState extends State<SplashPage> {
     var duration = const Duration(seconds: 2);
     return Timer(duration, () {
       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) {
-        return LoginPage();
+        return SignInPage();
       }));
     });
   }
@@ -28,19 +27,14 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorBg1,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Image.asset(
-              'assets/Union.png',
-              height: 150,
-              width: 150,
-            ),
+        backgroundColor: colorBg1,
+        body: Center(
+          child: Container(
+            height: 150,
+            width: 130,
+            decoration: BoxDecoration(
+                image: DecorationImage(image: AssetImage('assets/Union.png'))),
           ),
-        ],
-      ),
-    );
+        ));
   }
 }

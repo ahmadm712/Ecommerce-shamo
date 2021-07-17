@@ -1,4 +1,5 @@
-import 'package:ecommerce_shamo/pages/splash.dart';
+import 'package:ecommerce_shamo/pages/sign_in_page.dart';
+import 'package:ecommerce_shamo/pages/splash_page.dart';
 
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SplashPage(),
+      routes: {
+        '/': (context) => SplashPage(),
+        '/sign-in': (context) => SignInPage()
+      },
+      
     );
   }
 }
