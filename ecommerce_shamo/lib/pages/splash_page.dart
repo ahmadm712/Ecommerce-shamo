@@ -11,17 +11,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    super.initState();
-    startSplashScreen();
-  }
-
-  startSplashScreen() async {
-    var duration = const Duration(seconds: 2);
-    return Timer(duration, () {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) {
-        return SignInPage();
-      }));
-    });
+    Timer(Duration(seconds: 3), () => Navigator.pushNamed(context, '/sign-in'));
   }
 
   @override
