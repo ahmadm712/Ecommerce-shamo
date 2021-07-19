@@ -1,7 +1,17 @@
+import 'package:ecommerce_shamo/pages/home/chat_page.dart';
+import 'package:ecommerce_shamo/pages/home/home_page.dart';
+import 'package:ecommerce_shamo/pages/home/profil_page.dart';
+import 'package:ecommerce_shamo/pages/home/wish_list_page.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     Widget cartButton() {
@@ -21,33 +31,53 @@ class MainPage extends StatelessWidget {
         child: BottomAppBar(
           shape: CircularNotchedRectangle(),
           clipBehavior: Clip.antiAlias,
-          notchMargin: 10,
+          notchMargin: 12,
           child: BottomNavigationBar(
+            currentIndex: currentIndex,
+            onTap: (value) {
+              print(value);
+              setState(() {
+                currentIndex = value;
+              });
+            },
             type: BottomNavigationBarType.fixed,
             backgroundColor: backgroundColor4,
             items: [
               BottomNavigationBarItem(
-                  icon: Image.asset(
-                    'assets/icon_home.png',
-                    width: 21,
+                  icon: Container(
+                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    child: Image.asset(
+                      'assets/icon_home.png',
+                      width: 21,
+                      color: currentIndex == 0 ? colorPrimary : navbaritemColor,
+                    ),
                   ),
                   label: ''),
               BottomNavigationBarItem(
-                  icon: Image.asset(
-                    'assets/icon_chat.png',
-                    width: 20,
+                  icon: Container(
+                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    child: Image.asset('assets/icon_chat.png',
+                        width: 20,
+                        color:
+                            currentIndex == 1 ? colorPrimary : navbaritemColor),
                   ),
                   label: ''),
               BottomNavigationBarItem(
-                  icon: Image.asset(
-                    'assets/icon_wishlist.png',
-                    width: 20,
+                  icon: Container(
+                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    child: Image.asset('assets/icon_wishlist.png',
+                        width: 20,
+                        color:
+                            currentIndex == 2 ? colorPrimary : navbaritemColor),
                   ),
                   label: ''),
               BottomNavigationBarItem(
-                  icon: Image.asset(
-                    'assets/icon_profile.png',
-                    width: 20,
+                  icon: Container(
+                    margin: EdgeInsets.only(top: 20, bottom: 10),
+                    child: Image.asset('assets/icon_profile.png',
+                        width: 20,
+                        color:
+                            currentIndex == 3 ? colorPrimary : navbaritemColor),
                   ),
                   label: ''),
             ],
@@ -56,17 +86,33 @@ class MainPage extends StatelessWidget {
       );
     }
 
+    Widget body() {
+      switch (currentIndex) {
+        case 0:
+          return HomePage();
+          break;
+
+        case 1:
+          return ChatPage();
+          break;
+
+        case 2:
+          return WishlistPage();
+          break;
+
+        case 3:
+          return ProfilPage();
+          break;
+
+        default:
+      }
+    }
+
     return Scaffold(
-      backgroundColor: colorBg1,
-      floatingActionButton: cartButton(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: customNavBar(),
-      body: Center(
-        child: Text(
-          'Main Page',
-          style: primaryTextStyle,
-        ),
-      ),
-    );
+        backgroundColor: colorBg1,
+        floatingActionButton: cartButton(),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        bottomNavigationBar: customNavBar(),
+        body: body());
   }
 }
