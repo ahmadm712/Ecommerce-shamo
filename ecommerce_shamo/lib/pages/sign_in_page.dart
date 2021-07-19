@@ -1,6 +1,5 @@
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
 
 class SignInPage extends StatelessWidget {
   @override
