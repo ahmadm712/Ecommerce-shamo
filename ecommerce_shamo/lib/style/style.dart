@@ -8,6 +8,7 @@ Color priceColor = Color(0xff2C96F1);
 Color subtitleColor = Color(0xff504F5E);
 Color backgroundColor4 = Color(0xff252836);
 Color navbaritemColor = Color(0xff808191);
+Color colorBG5 = Color(0xff2B2844);
 
 Color transaparentColor = Colors.transparent;
 
