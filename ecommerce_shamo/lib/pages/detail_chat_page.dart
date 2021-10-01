@@ -142,6 +142,7 @@ class DetailChat extends StatelessWidget {
           ChatBubble(
             isSender: true,
             text: 'Hi, This item is still available?',
+            hasProduct: true,
           ),
           ChatBubble(
             isSender: false,
@@ -149,6 +150,10 @@ class DetailChat extends StatelessWidget {
           ),
         ],
       );
+    }
+
+    Widget cobaCoba() {
+      return ListView();
     }
 
     return Scaffold(
