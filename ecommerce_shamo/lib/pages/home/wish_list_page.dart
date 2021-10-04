@@ -1,4 +1,5 @@
 import 'package:ecommerce_shamo/style/style.dart';
+import 'package:ecommerce_shamo/widgets/wishlist_card.dart';
 import 'package:flutter/material.dart';
 
 class WishlistPage extends StatelessWidget {
@@ -62,8 +63,23 @@ class WishlistPage extends StatelessWidget {
       ));
     }
 
+    Widget content() {
+      return Expanded(
+          child: Container(
+        color: colorBg3,
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+          children: [WishListCard(), WishListCard(), WishListCard()],
+        ),
+      ));
+    }
+
     return Column(
-      children: [header(), emptyWishlist()],
+      children: [
+        header(),
+        //  emptyWishlist(),
+        content(),
+      ],
     );
   }
 }
