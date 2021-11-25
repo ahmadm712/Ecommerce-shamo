@@ -26,7 +26,7 @@ class HomePage extends StatelessWidget {
                         fontSize: 24, fontWeight: semibold),
                   ),
                   Text(
-                    '@Ahmadm24',
+                    '@Ahmad Muji',
                     style: subtitleTextStyle.copyWith(fontSize: 16),
                   )
                 ],

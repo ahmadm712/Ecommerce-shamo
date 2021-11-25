@@ -1,6 +1,7 @@
 import 'package:ecommerce_shamo/pages/detail_chat_page.dart';
 import 'package:ecommerce_shamo/pages/edit_profile_page.dart';
 import 'package:ecommerce_shamo/pages/home/main_page.dart';
+import 'package:ecommerce_shamo/pages/product_page.dart';
 import 'package:ecommerce_shamo/pages/sign_in_page.dart';
 import 'package:ecommerce_shamo/pages/sign_up_page.dart';
 import 'package:ecommerce_shamo/pages/splash_page.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/sign-in': (context) => SignInPage(),
         '/sign-up': (context) => SignUpPage(),
         '/home': (context) => MainPage(),
+        '/product': (context) => ProductPage(),
         '/detail-chat': (context) => DetailChat(),
         '/edit-profile': (context) => EditProfilePage(),
       },
