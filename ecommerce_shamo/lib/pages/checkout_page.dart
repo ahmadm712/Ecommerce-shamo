@@ -17,7 +17,7 @@ class CheckoutPage extends StatelessWidget {
     );
   }
 
-  Widget content() {
+  Widget content(BuildContext context) {
     return ListView(
       padding: EdgeInsets.symmetric(horizontal: defaultMargin),
       children: [
@@ -118,6 +118,131 @@ class CheckoutPage extends StatelessWidget {
               )
             ],
           ),
+        ),
+
+        // Todo Note : Payment Summary
+        Container(
+          margin: EdgeInsets.only(top: defaultMargin),
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: backgroundColor4,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Payment Summary",
+                style: primaryTextStyle.copyWith(
+                  fontSize: 15,
+                  fontWeight: medium,
+                ),
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Product Quantity',
+                    style: secondaryTextStyle.copyWith(fontSize: 12),
+                  ),
+                  Text(
+                    '2 Items',
+                    style: primaryTextStyle.copyWith(fontWeight: medium),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Product Price',
+                    style: secondaryTextStyle.copyWith(fontSize: 12),
+                  ),
+                  Text(
+                    '\$575.62',
+                    style: primaryTextStyle.copyWith(fontWeight: medium),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Shipping',
+                    style: secondaryTextStyle.copyWith(fontSize: 12),
+                  ),
+                  Text(
+                    'Free',
+                    style: primaryTextStyle.copyWith(fontWeight: medium),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Divider(
+                thickness: 1,
+                color: Color(0xff2E3141),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Total',
+                    style: priceTextStyle.copyWith(
+                        fontSize: 14, fontWeight: semibold),
+                  ),
+                  Text(
+                    '\$575.62',
+                    style: priceTextStyle.copyWith(
+                        fontSize: 14, fontWeight: semibold),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        // Todo : Note : Checkout Button
+        SizedBox(
+          height: defaultMargin,
+        ),
+        Divider(
+          thickness: 1,
+          color: Color(0xff2E3141),
+        ),
+        Container(
+          width: double.infinity,
+          height: 50,
+          margin: EdgeInsets.symmetric(vertical: defaultMargin),
+          child: TextButton(
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/checkout-success', (route) => false);
+            },
+            child: Text(
+              'Checkout Now',
+              style:
+                  primaryTextStyle.copyWith(fontSize: 16, fontWeight: semibold),
+            ),
+            style: TextButton.styleFrom(
+              backgroundColor: colorPrimary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+            ),
+          ),
         )
       ],
     );
@@ -128,7 +253,7 @@ class CheckoutPage extends StatelessWidget {
     return Scaffold(
       appBar: header(),
       backgroundColor: colorBg3,
-      body: content(),
+      body: content(context),
     );
   }
 }
