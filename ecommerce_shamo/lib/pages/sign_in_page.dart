@@ -1,9 +1,49 @@
+import 'package:ecommerce_shamo/provider/auth_provider.dart';
 import 'package:ecommerce_shamo/style/style.dart';
+import 'package:ecommerce_shamo/widgets/loading_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  TextEditingController emailController = TextEditingController(text: '');
+
+  TextEditingController passwordController = TextEditingController(text: '');
+
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    handleSignIn() async {
+      setState(() {
+        isLoading = true;
+      });
+      if (await authProvider.login(
+        email: emailController.text,
+        password: passwordController.text,
+      )) {
+        Navigator.pushNamed(context, '/home');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: colorAlert,
+            content: Text(
+              'Gagal Login!',
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+
     //start header
     Widget header() {
       return Container(
@@ -62,6 +102,7 @@ class SignInPage extends StatelessWidget {
                   Expanded(
                       child: TextFormField(
                     style: primaryTextStyle,
+                    controller: emailController,
                     decoration: InputDecoration.collapsed(
                         hintText: 'Your Email Addres',
                         hintStyle: subtitleTextStyle),
@@ -108,6 +149,7 @@ class SignInPage extends StatelessWidget {
                       child: TextFormField(
                     obscureText: true,
                     style: primaryTextStyle,
+                    controller: passwordController,
                     decoration: InputDecoration.collapsed(
                         hintText: 'Your Password',
                         hintStyle: subtitleTextStyle),
@@ -131,9 +173,7 @@ class SignInPage extends StatelessWidget {
                 backgroundColor: colorPrimary,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12))),
-            onPressed: () {
-              Navigator.pushNamed(context, '/home');
-            },
+            onPressed: handleSignIn,
             child: Text(
               'Sign in',
               style:
@@ -179,7 +219,7 @@ class SignInPage extends StatelessWidget {
               header(),
               emailInput(),
               passInput(),
-              button(),
+              isLoading ? LoadingButton() : button(),
               Spacer(),
               footer()
             ],
