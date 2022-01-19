@@ -1,11 +1,17 @@
+import 'package:ecommerce_shamo/models/user_model.dart';
+import 'package:ecommerce_shamo/provider/auth_provider.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:ecommerce_shamo/widgets/products_card.dart';
 import 'package:ecommerce_shamo/widgets/products_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    UserModel user = authProvider.user;
     //start wiget header
     Widget header() {
       return Container(
@@ -21,12 +27,12 @@ class HomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hello, Ahmad Muji',
+                    'Hello, ${user.name}',
                     style: primaryTextStyle.copyWith(
                         fontSize: 24, fontWeight: semibold),
                   ),
                   Text(
-                    '@Ahmad Muji',
+                    '@${user.username}',
                     style: subtitleTextStyle.copyWith(fontSize: 16),
                   )
                 ],
@@ -36,9 +42,11 @@ class HomePage extends StatelessWidget {
               width: 54,
               height: 54,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      image: AssetImage('assets/image_profile.png'))),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: NetworkImage('${user.profilePhotoUrl}'),
+                ),
+              ),
             )
           ],
         ),

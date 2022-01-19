@@ -1,9 +1,15 @@
+import 'package:ecommerce_shamo/models/user_model.dart';
+import 'package:ecommerce_shamo/provider/auth_provider.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    UserModel user = authProvider.user;
     Widget header() {
       return AppBar(
         backgroundColor: colorBg1,
@@ -15,8 +21,8 @@ class ProfilPage extends StatelessWidget {
           child: Row(
             children: [
               ClipOval(
-                child: Image.asset(
-                  'assets/image_profile.png',
+                child: Image.network(
+                  '${user.profilePhotoUrl}',
                   width: 64,
                 ),
               ),
@@ -28,14 +34,14 @@ class ProfilPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hello, Ahmad',
+                      'Hello, ${user.name}',
                       style: primaryTextStyle.copyWith(
                         fontSize: 24,
                         fontWeight: semibold,
                       ),
                     ),
                     Text(
-                      '@Ahmxmad',
+                      '@${user.username}',
                       style: subtitleTextStyle.copyWith(fontSize: 16),
                     ),
                   ],
