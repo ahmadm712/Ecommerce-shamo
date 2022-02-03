@@ -1,7 +1,10 @@
+import 'package:ecommerce_shamo/models/products_model.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
 
 class ProductsCard extends StatelessWidget {
+  final ProductsModel product;
+  ProductsCard(this.product);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -22,8 +25,8 @@ class ProductsCard extends StatelessWidget {
             SizedBox(
               height: 38,
             ),
-            Image.asset(
-              'assets/image_shoes.png',
+            Image.network(
+              product.galleries.first.url,
               width: 215,
               height: 150,
               fit: BoxFit.cover,
@@ -34,24 +37,30 @@ class ProductsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Hiking',
+                    product.category.name,
                     style: secondaryTextStyle.copyWith(fontSize: 12),
                   ),
                   SizedBox(
                     height: 6,
                   ),
                   Text(
-                    'Adidas Court Vision',
+                    product.name,
                     style: blackTextStyle.copyWith(
-                        fontSize: 18, fontWeight: semibold),
+                      fontSize: 18,
+                      fontWeight: semibold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   SizedBox(
                     height: 6,
                   ),
                   Text(
-                    '\$48.3',
+                    "\$${product.price.toString()}",
                     style: priceTextStyle.copyWith(
-                        fontSize: 14, fontWeight: medium),
+                      fontSize: 14,
+                      fontWeight: medium,
+                    ),
                   )
                 ],
               ),
