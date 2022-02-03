@@ -32,7 +32,7 @@ class ProductsModel {
     tags = json['tags'];
     category = CategoryModel.fromJson(json['category']);
     galleries = json['galleries']
-        .map((galery) => GalleryModel.fromJson(galery))
+        .map<GalleryModel>((galery) => GalleryModel.fromJson(galery))
         .toList();
 
     createdAt = DateTime.parse(json['created_at']);
