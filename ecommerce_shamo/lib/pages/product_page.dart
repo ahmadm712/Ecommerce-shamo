@@ -47,7 +47,7 @@ class _ProductPageState extends State<ProductPage> {
 
     Widget familiarShoesCard(String imageUrl) {
       return Container(
-        width: 54,
+        width: 55,
         height: 54,
         margin: EdgeInsets.only(
           right: 16,
