@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_shamo/models/products_model.dart';
+import 'package:ecommerce_shamo/provider/cart_provider.dart';
 import 'package:ecommerce_shamo/provider/wishlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_shamo/style/style.dart';
@@ -36,6 +37,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     WishListProvider wishListProvider = Provider.of<WishListProvider>(context);
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
 
     Widget indicator(int index) {
       return Container(
@@ -45,6 +47,85 @@ class _ProductPageState extends State<ProductPage> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: currentIndex == index ? colorPrimary : Color(0xffC4C4C4),
+        ),
+      );
+    }
+
+    Future<void> showSuccessDialog() async {
+      return showDialog(
+        context: context,
+        builder: (BuildContext context) => Container(
+          width: MediaQuery.of(context).size.width - (2 * defaultMargin),
+          child: AlertDialog(
+            backgroundColor: colorBg3,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.close,
+                        color: primaryTextColor,
+                      ),
+                    ),
+                  ),
+                  Image.asset(
+                    'assets/icon_success.png',
+                    width: 100,
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    'Hurray :)',
+                    style: primaryTextStyle.copyWith(
+                      fontSize: 18,
+                      fontWeight: semibold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    'Item added successfully',
+                    style: secondaryTextStyle,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: 154,
+                    height: 44,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/cart');
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: colorPrimary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: Text(
+                        'View My Cart',
+                        style: primaryTextStyle.copyWith(
+                          fontSize: 16,
+                          fontWeight: medium,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       );
     }
@@ -325,7 +406,10 @@ class _ProductPageState extends State<ProductPage> {
                     child: Container(
                       height: 54,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          cartProvider.addCart(widget.product);
+                          showSuccessDialog();
+                        },
                         child: Text(
                           'Add To Chart',
                           style: primaryTextStyle.copyWith(
