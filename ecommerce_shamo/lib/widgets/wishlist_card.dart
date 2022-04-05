@@ -1,9 +1,15 @@
+import 'package:ecommerce_shamo/models/products_model.dart';
+import 'package:ecommerce_shamo/provider/wishlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_shamo/style/style.dart';
+import 'package:provider/provider.dart';
 
 class WishListCard extends StatelessWidget {
+  ProductsModel productsModel;
+  WishListCard(this.productsModel);
   @override
   Widget build(BuildContext context) {
+    WishListProvider wishListProvider = Provider.of<WishListProvider>(context);
     return Container(
       margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.only(top: 10, left: 12, bottom: 14, right: 20),
@@ -13,8 +19,8 @@ class WishListCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.asset(
-              'assets/image_shoes.png',
+            child: Image.network(
+              productsModel.galleries.first.url,
               width: 60,
             ),
           ),
@@ -26,21 +32,48 @@ class WishListCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Terrex Urban Low',
+                  productsModel.name,
                   style: primaryTextStyle.copyWith(
                     fontWeight: bold,
                   ),
                 ),
                 Text(
-                  '\$45,87',
+                  productsModel.price.toString(),
                   style: priceTextStyle,
                 )
               ],
             ),
           ),
-          Image.asset(
-            'assets/button_wishlist_blue.png',
-            width: 34,
+          GestureDetector(
+            onTap: () {
+              wishListProvider.setProduct(productsModel);
+
+              if (wishListProvider.isWishList(productsModel)) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: colorSecond,
+                    content: Text(
+                      'Has been added to the Wishlist',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: colorAlert,
+                    content: Text(
+                      'Has been removed from the Wishlist',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Image.asset(
+              'assets/button_wishlist_blue.png',
+              width: 34,
+            ),
           )
         ],
       ),

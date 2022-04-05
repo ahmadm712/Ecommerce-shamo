@@ -10,6 +10,7 @@ import 'package:ecommerce_shamo/pages/sign_up_page.dart';
 import 'package:ecommerce_shamo/pages/splash_page.dart';
 import 'package:ecommerce_shamo/provider/auth_provider.dart';
 import 'package:ecommerce_shamo/provider/products_provider.dart';
+import 'package:ecommerce_shamo/provider/wishlist_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,8 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AuthProvider()),
-        ChangeNotifierProvider(create: (context) => ProductProvider())
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => WishListProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
