@@ -56,7 +56,9 @@ class _CheckoutPageSuccessState extends State<CheckoutPageSuccess> {
                 top: defaultMargin,
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, '/home');
+                },
                 child: Text(
                   'Order Other Shoes',
                   style: primaryTextStyle.copyWith(
