@@ -52,7 +52,7 @@ class CartProvider extends ChangeNotifier {
   totalItem() {
     int total = 0;
     for (var item in _carts) {
-      total = item.quantity;
+      total += item.quantity;
     }
 
     return total;
