@@ -1,8 +1,17 @@
+import 'package:ecommerce_shamo/models/products_model.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:ecommerce_shamo/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
 
-class DetailChat extends StatelessWidget {
+class DetailChat extends StatefulWidget {
+  ProductsModel product;
+  DetailChat({this.product});
+
+  @override
+  State<DetailChat> createState() => _DetailChatState();
+}
+
+class _DetailChatState extends State<DetailChat> {
   @override
   Widget build(BuildContext context) {
     Widget header() {
@@ -55,8 +64,8 @@ class DetailChat extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              child: Image.asset(
-                'assets/image_shoes.png',
+              child: Image.network(
+                widget.product.galleries.first.url,
                 width: 54,
               ),
               borderRadius: BorderRadius.circular(12),
@@ -69,7 +78,7 @@ class DetailChat extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'COURT VISIO...',
+                    widget.product.name,
                     style: primaryTextStyle,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -77,7 +86,7 @@ class DetailChat extends StatelessWidget {
                     height: 2,
                   ),
                   Text(
-                    '\$57,15',
+                    '\$${widget.product.price}',
                     style: priceTextStyle.copyWith(fontWeight: medium),
                   )
                 ],
@@ -86,9 +95,16 @@ class DetailChat extends StatelessWidget {
             SizedBox(
               width: 7,
             ),
-            Image.asset(
-              'assets/button_close.png',
-              width: 22,
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  widget.product = UnitializedProductModel();
+                });
+              },
+              child: Image.asset(
+                'assets/button_close.png',
+                width: 22,
+              ),
             )
           ],
         ),
@@ -102,7 +118,9 @@ class DetailChat extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            productPreview(),
+            widget.product is UnitializedProductModel
+                ? SizedBox()
+                : productPreview(),
             Row(
               children: [
                 Expanded(

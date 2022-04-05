@@ -53,3 +53,5 @@ class ProductsModel {
     };
   }
 }
+
+class UnitializedProductModel extends ProductsModel {}

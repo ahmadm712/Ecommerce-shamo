@@ -390,12 +390,21 @@ class _ProductPageState extends State<ProductPage> {
               ),
               child: Row(
                 children: [
-                  Container(
-                    width: 54,
-                    height: 54,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/button_chat.png'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/detail-chat',
+                        arguments: widget.product,
+                      );
+                    },
+                    child: Container(
+                      width: 54,
+                      height: 54,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/button_chat.png'),
+                        ),
                       ),
                     ),
                   ),

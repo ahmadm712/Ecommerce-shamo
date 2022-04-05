@@ -1,3 +1,4 @@
+import 'package:ecommerce_shamo/models/products_model.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,12 @@ class ChatTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/detail-chat');
+        Navigator.pushNamed(
+          context,
+          '/detail-chat',
+          arguments: UnitializedProductModel(),
+        );
+        ;
       },
       child: Container(
         margin: EdgeInsets.only(top: 33),

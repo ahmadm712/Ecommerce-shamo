@@ -1,3 +1,4 @@
+import 'package:ecommerce_shamo/models/products_model.dart';
 import 'package:ecommerce_shamo/pages/cart_pages.dart';
 import 'package:ecommerce_shamo/pages/checkout_page.dart';
 import 'package:ecommerce_shamo/pages/checkout_success_page.dart';
@@ -46,7 +47,10 @@ class MyApp extends StatelessWidget {
           '/cart': (context) => CartPage(),
           '/checkout': (context) => CheckoutPage(),
           '/checkout-success': (context) => CheckoutPageSuccess(),
-          '/detail-chat': (context) => DetailChat(),
+          '/detail-chat': (context) => DetailChat(
+                product:
+                    ModalRoute.of(context).settings.arguments as ProductsModel,
+              ),
           '/edit-profile': (context) => EditProfilePage(),
         },
       ),
