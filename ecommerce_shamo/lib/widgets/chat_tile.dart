@@ -1,8 +1,11 @@
+import 'package:ecommerce_shamo/models/message_model.dart';
 import 'package:ecommerce_shamo/models/products_model.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
 
 class ChatTile extends StatelessWidget {
+  MessageModel message;
+  ChatTile(this.message);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -20,8 +23,8 @@ class ChatTile extends StatelessWidget {
           children: [
             Row(
               children: [
-                Image.asset(
-                  'assets/image_shop_logo.png',
+                Image.network(
+                  message.userImg,
                   width: 54,
                 ),
                 SizedBox(
@@ -32,11 +35,11 @@ class ChatTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Shoe Store',
+                        message.userName,
                         style: primaryTextStyle.copyWith(fontSize: 15),
                       ),
                       Text(
-                        'Good night, This item is on...Good night, This item is on.',
+                        message.message,
                         style: secondaryTextStyle.copyWith(fontWeight: light),
                         overflow: TextOverflow.ellipsis,
                       )
@@ -44,7 +47,7 @@ class ChatTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Now',
+                  message.createdAt.toString(),
                   style: secondaryTextStyle.copyWith(fontSize: 10),
                 )
               ],

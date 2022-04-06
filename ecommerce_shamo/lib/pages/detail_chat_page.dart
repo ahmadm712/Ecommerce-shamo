@@ -1,7 +1,11 @@
+import 'package:ecommerce_shamo/models/message_model.dart';
 import 'package:ecommerce_shamo/models/products_model.dart';
+import 'package:ecommerce_shamo/provider/auth_provider.dart';
+import 'package:ecommerce_shamo/services/message_services.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:ecommerce_shamo/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DetailChat extends StatefulWidget {
   ProductsModel product;
@@ -12,8 +16,24 @@ class DetailChat extends StatefulWidget {
 }
 
 class _DetailChatState extends State<DetailChat> {
+  TextEditingController mesageController = TextEditingController(text: "");
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    handleAddMessage() async {
+      await MessagesServices().addMessages(
+        user: authProvider.user,
+        isFormUser: true,
+        product: widget.product,
+        message: mesageController.text,
+      );
+      setState(() {
+        widget.product = UnitializedProductModel();
+        mesageController.clear();
+      });
+    }
+
     Widget header() {
       return PreferredSize(
         preferredSize: Size.fromHeight(70),
@@ -132,6 +152,8 @@ class _DetailChatState extends State<DetailChat> {
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Center(
                       child: TextFormField(
+                        controller: mesageController,
+                        style: primaryTextStyle,
                         decoration: InputDecoration.collapsed(
                             hintText: 'Type a messege....',
                             hintStyle: subtitleTextStyle),
@@ -142,9 +164,12 @@ class _DetailChatState extends State<DetailChat> {
                 SizedBox(
                   width: 20,
                 ),
-                Image.asset(
-                  'assets/button_send.png',
-                  width: 45,
+                GestureDetector(
+                  onTap: handleAddMessage,
+                  child: Image.asset(
+                    'assets/button_send.png',
+                    width: 45,
+                  ),
                 )
               ],
             ),
@@ -154,19 +179,27 @@ class _DetailChatState extends State<DetailChat> {
     }
 
     Widget content() {
-      return ListView(
-        padding: EdgeInsets.symmetric(horizontal: defaultMargin),
-        children: [
-          ChatBubble(
-            isSender: true,
-            text: 'Hi, This item is still available?',
-            hasProduct: true,
-          ),
-          ChatBubble(
-            isSender: false,
-            text: 'Good night, This item is only available in size 42 and 43',
-          ),
-        ],
+      return StreamBuilder<List<MessageModel>>(
+        stream: MessagesServices()
+            .getMessagesByUserId(userId: authProvider.user.id),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView(
+              padding: EdgeInsets.symmetric(horizontal: defaultMargin),
+              children: snapshot.data
+                  .map((MessageModel message) => ChatBubble(
+                        isSender: message.isFromUser,
+                        text: message.message,
+                        product: message.product,
+                      ))
+                  .toList(),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
       );
     }
 
