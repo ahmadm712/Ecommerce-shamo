@@ -2,8 +2,10 @@ import 'package:ecommerce_shamo/pages/home/chat_page.dart';
 import 'package:ecommerce_shamo/pages/home/home_page.dart';
 import 'package:ecommerce_shamo/pages/home/profil_page.dart';
 import 'package:ecommerce_shamo/pages/home/wish_list_page.dart';
+import 'package:ecommerce_shamo/provider/page_provider.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -11,9 +13,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
     Widget cartButton() {
       return FloatingActionButton(
         onPressed: () {
@@ -35,12 +37,10 @@ class _MainPageState extends State<MainPage> {
           clipBehavior: Clip.antiAlias,
           notchMargin: 12,
           child: BottomNavigationBar(
-            currentIndex: currentIndex,
+            currentIndex: pageProvider.currentIndex,
             onTap: (value) {
               print(value);
-              setState(() {
-                currentIndex = value;
-              });
+              pageProvider.currentIndex = value;
             },
             type: BottomNavigationBarType.fixed,
             backgroundColor: backgroundColor4,
@@ -51,7 +51,9 @@ class _MainPageState extends State<MainPage> {
                     child: Image.asset(
                       'assets/icon_home.png',
                       width: 21,
-                      color: currentIndex == 0 ? colorPrimary : navbaritemColor,
+                      color: pageProvider.currentIndex == 0
+                          ? colorPrimary
+                          : navbaritemColor,
                     ),
                   ),
                   label: ''),
@@ -60,8 +62,9 @@ class _MainPageState extends State<MainPage> {
                     margin: EdgeInsets.only(top: 20, bottom: 10),
                     child: Image.asset('assets/icon_chat.png',
                         width: 20,
-                        color:
-                            currentIndex == 1 ? colorPrimary : navbaritemColor),
+                        color: pageProvider.currentIndex == 1
+                            ? colorPrimary
+                            : navbaritemColor),
                   ),
                   label: ''),
               BottomNavigationBarItem(
@@ -69,8 +72,9 @@ class _MainPageState extends State<MainPage> {
                     margin: EdgeInsets.only(top: 20, bottom: 10),
                     child: Image.asset('assets/icon_wishlist.png',
                         width: 20,
-                        color:
-                            currentIndex == 2 ? colorPrimary : navbaritemColor),
+                        color: pageProvider.currentIndex == 2
+                            ? colorPrimary
+                            : navbaritemColor),
                   ),
                   label: ''),
               BottomNavigationBarItem(
@@ -78,8 +82,9 @@ class _MainPageState extends State<MainPage> {
                     margin: EdgeInsets.only(top: 20, bottom: 10),
                     child: Image.asset('assets/icon_profile.png',
                         width: 20,
-                        color:
-                            currentIndex == 3 ? colorPrimary : navbaritemColor),
+                        color: pageProvider.currentIndex == 3
+                            ? colorPrimary
+                            : navbaritemColor),
                   ),
                   label: ''),
             ],
@@ -89,7 +94,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     Widget body() {
-      switch (currentIndex) {
+      switch (pageProvider.currentIndex) {
         case 0:
           return HomePage();
           break;
@@ -111,7 +116,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-        backgroundColor: currentIndex == 0 ? colorBg1 : colorBg3,
+        backgroundColor: pageProvider.currentIndex == 0 ? colorBg1 : colorBg3,
         floatingActionButton: cartButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         bottomNavigationBar: customNavBar(),

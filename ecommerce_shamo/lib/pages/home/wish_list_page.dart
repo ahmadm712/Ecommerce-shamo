@@ -1,3 +1,4 @@
+import 'package:ecommerce_shamo/provider/page_provider.dart';
 import 'package:ecommerce_shamo/provider/wishlist_provider.dart';
 import 'package:ecommerce_shamo/style/style.dart';
 import 'package:ecommerce_shamo/widgets/wishlist_card.dart';
@@ -8,6 +9,7 @@ class WishlistPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WishListProvider wishListProvider = Provider.of<WishListProvider>(context);
+    PageProvider pageProvider = Provider.of<PageProvider>(context);
     Widget header() {
       return AppBar(
         backgroundColor: colorBg1,
@@ -49,18 +51,23 @@ class WishlistPage extends StatelessWidget {
               height: 20,
             ),
             Container(
-                height: 44,
-                child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 24),
-                        backgroundColor: colorPrimary,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12))),
-                    child: Text('Explore Store',
-                        style: priceTextStyle.copyWith(
-                            fontWeight: medium, fontSize: 16))))
+              height: 44,
+              child: TextButton(
+                onPressed: () {
+                  pageProvider.currentIndex = 0;
+                },
+                style: TextButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 24),
+                    backgroundColor: colorPrimary,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12))),
+                child: Text(
+                  'Explore Store',
+                  style:
+                      priceTextStyle.copyWith(fontWeight: medium, fontSize: 16),
+                ),
+              ),
+            )
           ],
         ),
       ));
